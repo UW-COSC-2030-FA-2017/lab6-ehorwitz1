@@ -1,6 +1,7 @@
 // SortedDriver.cpp
 
-// tom bailey   1445  25 mar 2014
+// Erik Horwitz 10/30/2017
+
 // Construct sorted sequences and call functions that 
 //   process the sorted sequences.
 
@@ -12,6 +13,9 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <stack>
+#include <cmath>
+#include <set>
 
 
 using namespace std;
@@ -63,8 +67,52 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	// STUB  STUB  STUB
-	return -123.456;
+	double diff;
+	double nextDiff = 0;
+	int next = 1;
+	double prevDiff = 0;
+	int prevNext = 0;
+	double maxPrevDiff = 0;
+	double maxNextDiff = 0;
+	int maxDiffIndex=0;
+
+	for (int i = 0; i < number.size()-1; i++)
+	{
+		diff = abs(number[i] - number[next]); 
+		if (prevNext == 0)
+		{
+			prevDiff = abs(number[prevNext] - number[prevNext]);
+		}
+		else
+		{
+			prevDiff = abs(number[prevNext] - number[prevNext - 1]);
+		}
+
+		nextDiff = diff;
+
+		if (prevDiff >= maxPrevDiff)
+		{
+
+			maxPrevDiff = prevDiff;
+			maxDiffIndex = i;
+		}
+		else
+		{
+			maxNextDiff = abs(number[maxDiffIndex] - number[maxDiffIndex + 1]);
+			if (maxNextDiff > nextDiff)
+			{
+				maxDiffIndex = maxDiffIndex;
+			}
+			else
+			{
+				maxDiffIndex = i;
+			}
+		}
+
+		next++;
+		prevNext++;
+	}
+	return number[maxDiffIndex];
 }
 
 
@@ -74,16 +122,48 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
-	return -1;
+	int diff = 0;
+	int indexDiff = A.size();
+
+
+	
+	auto it1 = A.begin();
+	auto it2 = B.begin();
+
+
+
+	while (it1 != A.end() && it2 != B.end())
+	{
+
+
+		if (*it1 > *it2) {
+
+
+			
+
+			it2++;
+		}
+
+		else if (*it1 == *it2) {
+			it1++;
+			indexDiff--;
+		}
+		else
+		{
+			it1++;
+		}
+		
+		
+	}
+
+	return indexDiff;
 }
 
 
 int
 main()
 {
-	cout << "Find the most isolated number" << endl
-		<< "-----------------------------" << endl << endl;
+
 	while (true)
 	{
 		cout << "Enter size for numbers: ";
